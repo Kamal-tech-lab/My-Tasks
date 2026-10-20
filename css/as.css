@@ -110,6 +110,21 @@ body {
     background-color: #03A9F4;
 }
 
-
+.buttons {
+    width: 600px;
+    margin: 10px auto;
+    display: flex;
+    justify-content: space-between;
+}
+.buttons span {
+    padding: 8px 15px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.buttons .delete-all { background-color: #e91e63; }
+.buttons .finish-all { background-color: #03A9F4; }
 
 
