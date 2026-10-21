@@ -59,6 +59,7 @@ document.addEventListener("click", function (e) {
   if (e.target.classList.contains("task-box")) {
     e.target.classList.toggle("finished");
   }
+  saveTasks();
   calculateTasks();
 });
 
@@ -113,6 +114,7 @@ function finishAllTasks() {
   document.querySelectorAll(".task-box").forEach(function (task) {
     task.classList.add("finished");
   });
+  saveTasks();
   calculateTasks();
 }
 
@@ -120,7 +122,10 @@ function finishAllTasks() {
 function saveTasks() {
   let tasks = [];
   document.querySelectorAll(".task-box").forEach(function (task) {
-    tasks.push(task.firstChild.textContent);
+    tasks.push({
+      text: task.firstChild.textContent,
+      finished: task.classList.contains("finished"),
+    });
   });
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
@@ -133,8 +138,11 @@ function loadTasks() {
     saved.forEach(function (value) {
       let mainSpan = document.createElement("span");
       let deleteElement = document.createElement("span");
-      mainSpan.appendChild(document.createTextNode(value));
+      mainSpan.appendChild(document.createTextNode(value.text));
       mainSpan.className = "task-box";
+      if (value.finished) {
+        mainSpan.classList.add("finished");
+      }
       deleteElement.appendChild(document.createTextNode("Delete"));
       deleteElement.className = "delete";
       mainSpan.appendChild(deleteElement);
